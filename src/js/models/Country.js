@@ -1,7 +1,4 @@
-import axios from 'axios'
-import {
-    renderButton
-} from '../views/view';
+import axios from 'axios';
 
 export default class Country {
     constructor(name) {

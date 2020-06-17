@@ -1,4 +1,3 @@
-import img from '../../imgs/error.jpg'
 import {
     elements
 } from '../base';
@@ -50,11 +49,10 @@ export const clearResults = () => {
     elements.results.innerHTML = '';
 }
 // Show 404 error page
-export const showError = () => {
+export const showError = (errorMessage) => {
     const markup = `<div class="error">
-    <img src="${img}">
-    <p><a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by freepik - www.freepik.com</a></p>
-    </div>`
+                        ${errorMessage}
+                    </div>`
     elements.results.insertAdjacentHTML('afterbegin', markup);
 }
 

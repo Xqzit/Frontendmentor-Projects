@@ -10,9 +10,6 @@ import Filter from './models/Filter';
 import Country from './models/Country';
 import Border from './models/Border';
 import * as view from './views/view';
-import {
-    async
-} from 'q';
 
 
 /**
@@ -69,7 +66,7 @@ const controlSearch = async () => {
             // render search results page
             state.search.results.forEach(el => view.renderResults(el));
         } catch (error) {
-            view.showError();
+            view.showError(error);
         }
     }
 }
@@ -92,7 +89,7 @@ const controlFilter = async (q) => {
             state.filter.results.forEach(el => view.renderResults(el));
         } catch (error) {
             view.clearResults();
-            view.showError();
+            view.showError(error);
         }
     } else {
         controlHome();
@@ -132,7 +129,7 @@ const controlCountry = async (q) => {
 
     } catch (error) {
         console.error(error);
-        view.showError();
+        view.showError(error);
     }
 }
 
@@ -156,7 +153,7 @@ const controlBorder = async (q) => {
         // render the clicked page results
         controlCountry(state.border.results.name);
     } catch (error) {
-        view.showError();
+        view.showError(error);
     }
 }
 
