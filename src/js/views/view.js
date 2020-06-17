@@ -87,10 +87,9 @@ export const renderCountryPage = country => {
                     </div>
                 </div>
                 <div class="country__details-bottom">
-                    <p><span class="bold">Border Countries: </span>
-                        <div class="country__border-details" id="countryBorders">
-                        </div>
-                    </p>
+                    <h3 class="bold">Border Countries:</h3>
+                    <div class="country__border-details" id="countryBorders">
+                    </div>
                 </div>
             </div>
         </div>
