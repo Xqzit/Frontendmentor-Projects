@@ -22,7 +22,7 @@ The following are the features implemented:
 - Click through to the border countries on the detail page
 - Toggle the color scheme between light and dark mode
 
-## Version 2.0
+## Version 1.1
 - Reduced the number of fetches to 1
 - Removed unwanted packages (ex: axios);
 - Refactored JS
