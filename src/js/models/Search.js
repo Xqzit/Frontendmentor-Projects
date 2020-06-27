@@ -1,15 +1,32 @@
-import axios from 'axios'
+import elements from '../base'
+import { match } from '../utils/utils'
+import { clearResults, renderResults, showError, clearPagination } from '../views/view';
+import home from './home'
+import pagination from '../utils/pagination'
+/* Search Controller */
+const search = (data) => {
+    const countries = [...data];
+    const search = elements.search;
 
-export default class Search {
-    constructor(query) {
-        this.query = query;
-    }
-    async getSearchResults() {
-        try {
-            const res = await axios(`https://restcountries.eu/rest/v2/name/${this.query}`);
-            this.results = res.data;
-        } catch (error) {
-            console.error(error);
+    search.addEventListener('keyup', (event) => {
+        const searchQuery = event.target.value;
+        if (searchQuery !== "") {
+            const query = searchQuery.replace(/^./, searchQuery[0].toUpperCase())
+            const countryData = match(countries, query);
+
+            if (countryData.length > 0) {
+                clearResults();
+                clearPagination();
+                pagination(countryData);
+            } else {
+                clearResults();
+                showError();
+            }
+        } else {
+            clearResults();
+            home(data);
         }
-    }
+    })
 }
+
+export default search;

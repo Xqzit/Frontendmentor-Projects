@@ -1,7 +1,4 @@
-import img from '../../imgs/error.jpg'
-import {
-    elements
-} from '../base';
+import elements from '../base';
 
 // Switching Theme
 export const switchTheme = () => {
@@ -20,7 +17,7 @@ export const switchTheme = () => {
 };
 
 // Rendering Results
-export const renderResults = country => {
+export const renderResults = (country) => {
     const markup = `
     <div class="results__container" data-country="${country.name}">
         <a class="results__link" href="#">
@@ -42,27 +39,34 @@ export const renderResults = country => {
     elements.results.insertAdjacentHTML('beforeend', markup);
 };
 
-// Get search input
-export const getInputs = () => elements.search.value;
-
 // Search View clear results
 export const clearResults = () => {
     elements.results.innerHTML = '';
 }
 // Show 404 error page
 export const showError = () => {
-    const markup = `<div class="error">
-    <img src="${img}">
-    <p><a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by freepik - www.freepik.com</a></p>
-    </div>`
+    const markup = `<h2 style="width: 90vh">No results found. Please check the spelling</h2>`
     elements.results.insertAdjacentHTML('afterbegin', markup);
 }
 
-/** Country page rendering */
+/* Render Country details page */
 
-// Render Country details page
+export const renderCountryPage = (country, iso) => {
+    const borders = country.borders;
+    const convertIsoToName = (ISO3) => {
+        const isoMap = { ...iso };
+        return isoMap[ISO3];
+    }
+    convertIsoToName('IRN');
+    let borderMarkup = ""
+    const generateBorderMarkup = () => {
+        borders.forEach(country => {
+            const countryName = convertIsoToName(country);
+            borderMarkup += `<button class="btn border-btn" data-border="${countryName}">${countryName.replace(/\([^]*\)/g, '')}</button>`;
+        })
+    }
+    generateBorderMarkup();
 
-export const renderCountryPage = country => {
     const markup = `
     <div class="wrapper">
         <button class="btn back-btn"><i class="fas fa-arrow-left" href="#"></i>Back </button>
@@ -89,24 +93,38 @@ export const renderCountryPage = country => {
                     </div>
                 </div>
                 <div class="country__details-bottom">
-                    <p><span class="bold">Border Countries: </span>
-                        <div class="country__border-details" id="countryBorders">
-                        </div>
-                    </p>
+                    <h3 class="bold">Border Countries:</h3>
+                    <div class="country__border-details" id="countryBorders">
+                    ${borderMarkup}
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>`;
+            </div >
+        </div >
+    </div > `;
     elements.main.insertAdjacentHTML('afterbegin', markup);
 }
-// `<button class="btn border-btn">${border}</button>`
+// `< button class="btn border-btn" > ${ border }</ > `
 
 
 export const clearCountryPage = (el) => {
     el.remove();
 }
 
-export const renderButton = (el, border, data) => {
-    const markup = `<button class="btn border-btn" data-border="${border}">${data.name.replace(/\([^]*\)/g, '')}</button>`;
-    el.insertAdjacentHTML('beforeend', markup);
+
+const generatePageNumbers = (num) => {
+    let markup = '';
+    let i = 1;
+    while (i <= num) {
+        markup += `<button class="page-btn" data-index="${i - 1}">${i}</button>`;
+        i++;
+    }
+    return markup;
+}
+export const paginationNumbers = (num) => {
+    const markup = generatePageNumbers(num);
+    elements.pagination.insertAdjacentHTML('beforeend', markup);
+}
+
+export const clearPagination = () => {
+    elements.pagination.innerHTML = '';
 }

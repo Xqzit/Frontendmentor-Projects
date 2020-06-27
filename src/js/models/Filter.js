@@ -1,15 +1,30 @@
-import axios from 'axios'
+import elements from '../base'
+import { filterCountry } from '../utils/utils'
+import { clearResults, renderResults, clearPagination } from '../views/view';
+import pagination from '../utils/pagination';
 
-export default class Filter {
-    constructor(region) {
-        this.region = region;
-    }
-    async filterByRegion() {
-        try {
-            const res = await axios(`https://restcountries.eu/rest/v2/region/${this.region}`);
-            this.results = res.data;
-        } catch (error) {
-            console.error(error);
+/* Filter Controller */
+const filter = (data) => {
+    const allCountries = [...data];
+    const countries = [...data];
+    elements.filter.addEventListener('click', e => {
+        if (e.target.matches('.filter--list li, .filter--list li *')) {
+            const query = e.target.innerText;
+            if (query !== 'All') {
+                const countriesByRegion = filterCountry(countries, query, 'region');
+                clearResults();
+                clearPagination();
+                pagination(countriesByRegion);
+
+            } else {
+                clearResults();
+                clearPagination();
+                pagination(allCountries);
+                // allCountries.forEach(country => renderResults(country));
+            }
         }
-    }
+        e.preventDefault();
+    });
 }
+
+export default filter;

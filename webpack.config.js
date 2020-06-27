@@ -1,66 +1,47 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {
-    CleanWebpackPlugin
-} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserJSPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-module.exports = {
+const config = {
     entry: './src/js/index.js',
     output: {
-        filename: '[name].[contentHash].js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[contentHash].js'
     },
-    optimization: {
-        minimizer: [new TerserJSPlugin(), new OptimizeCSSAssetsPlugin(), new HtmlWebpackPlugin({
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                use: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    { loader: 'css-loader', options: { importLoaders: 1 } },
+                    'postcss-loader'
+                ]
+            },
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            appMountId: 'app',
+            filename: 'index.html',
             template: './src/index.html',
             minify: {
                 collapseWhitespace: true,
                 removeComments: true
             }
-        })]
-    },
-    plugins: [
+        }),
         new MiniCssExtractPlugin({
-            filename: 'styles.[contentHash].css'
+            filename: 'style.[contentHash].css',
         }),
         new CleanWebpackPlugin()
-    ],
-    module: {
-        rules: [{
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                }
-            },
-            {
-                test: /\.css$/,
-                use: [{
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: process.env.NODE_ENV === 'development',
-                        },
-                    },
-                    'css-loader',
-                    'postcss-loader'
-                ]
-            },
-            {
-                test: /\.html$/,
-                use: 'html-loader'
-            },
-            {
-                test: /\.(png|jpe?g|gif|svg)$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192 // in bytes
-                    }
-                }]
-            }
-        ]
-    }
+    ]
 };
+
+module.exports = config;
