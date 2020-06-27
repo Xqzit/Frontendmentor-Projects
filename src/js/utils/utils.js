@@ -52,7 +52,6 @@ export const paginationClickHandler = (e, arr) => {
     current.classList.add("current_page");
     currentPage = parseInt(current.dataset.index);
     clearResults();
-    console.log(arr[currentPage])
     arr[currentPage].forEach(country => renderResults(country));
   }
 }
