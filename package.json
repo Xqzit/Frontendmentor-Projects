@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm dist/bundle.js",
     "start": "webpack-dev-server -d --mode development --open",
-    "production": "webpack -p --mode production"
+    "bundle": "webpack -p --mode production"
   },
   "author": "John Samuel",
   "license": "MIT",
