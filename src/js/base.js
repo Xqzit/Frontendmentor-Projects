@@ -1,4 +1,4 @@
-export const elements = {
+const elements = {
     logo: document.querySelector('.logo-text'),
     html: document.querySelector('#html'),
     icon: document.querySelector('i'),
@@ -11,3 +11,5 @@ export const elements = {
     filterList: document.querySelectorAll('.filter--list li'),
     results: document.querySelector('.results')
 }
+
+export default elements;

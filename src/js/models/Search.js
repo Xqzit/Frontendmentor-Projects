@@ -1,15 +1,31 @@
-import axios from 'axios'
+import elements from '../base'
+import { match } from '../utils/utils'
+import { clearResults, renderResults, showError } from '../views/view';
+import home from './home'
 
-export default class Search {
-    constructor(query) {
-        this.query = query;
-    }
-    async getSearchResults() {
-        try {
-            const res = await axios(`https://restcountries.eu/rest/v2/name/${this.query}`);
-            this.results = res.data;
-        } catch (error) {
-            console.error(error);
+/* Search Controller */
+const search = (data) => {
+    const countries = [...data];
+    const search = elements.search;
+
+    search.addEventListener('keyup', (event) => {
+        const searchQuery = event.target.value;
+        if (searchQuery !== "") {
+            const query = searchQuery.replace(/^./, searchQuery[0].toUpperCase())
+            const countryData = match(countries, query);
+
+            if (countryData.length > 0) {
+                clearResults();
+                countryData.forEach(country => renderResults(country));
+            } else {
+                clearResults();
+                showError();
+            }
+        } else {
+            clearResults();
+            home(data);
         }
-    }
+    })
 }
+
+export default search;

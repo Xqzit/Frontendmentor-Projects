@@ -1,20 +1,10 @@
-import axios from 'axios';
+import { clearResults, renderResults } from '../views/view';
 
-export default class Home {
-    constructor() {
-        this.results = [];
-    }
-    // fetch all country details
-    getAllCountries = async () => {
-        try {
-            const response = await axios.get('https://restcountries.eu/rest/v2/all');
-            const data = response.data;
-            data.forEach(el => {
-                this.results.push(el);
-            })
-            // console.log(this.results);
-        } catch (error) {
-            alert(`Oops! Something Went Wrong :()`);
-        }
-    }
-}
+/* Home Controller */
+
+const home = (countries) => {
+    clearResults();
+    countries.forEach(country => renderResults(country));
+};
+
+export default home;

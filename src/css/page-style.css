@@ -1,10 +1,3 @@
-
-.country__details-main,
-.country__details-bottom {
-    display: flex;
-    flex-direction: column;
-}
-
 .wrapper {
     width: 100%;
 }
@@ -118,12 +111,12 @@ footer {
     .country__detailed__data {
         display: grid;
         grid-template-rows: initial;
-        grid-template-columns: 1.25fr 1fr;
-        grid-gap: 4.5em;
+        grid-template-columns: 50% 47%;
+        grid-gap: 3%;
         width: 100%;
     }
     .country__border-details {
-        grid-template-columns: repeat(4, max-content);
+        grid-template-columns: repeat(3, max-content);
         grid-auto-flow: row;
     }
     .country__flag {
