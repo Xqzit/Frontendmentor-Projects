@@ -1,5 +1,5 @@
 import elements from '../base'
-import { clearResults, clearCountryPage, renderCountryPage } from '../views/view'
+import { clearResults, clearCountryPage, renderCountryPage, clearPagination } from '../views/view'
 import home from './home'
 import { filterCountry } from '../utils/utils'
 
@@ -13,6 +13,7 @@ const countryPage = (data, iso) => {
             const country = filterCountry(countries, countryName, 'name');
             elements.searchDiv.style.display = 'none';
             clearResults();
+            clearPagination();
             renderCountryPage(country[0], iso);
         }
         e.preventDefault();

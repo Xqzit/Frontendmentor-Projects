@@ -1,3 +1,5 @@
+import { clearResults, renderResults } from '../views/view';
+
 export const fetchCountries = async () => {
   const response = await fetch('https://restcountries.eu/rest/v2/all');
   const result = await response.json();
@@ -28,3 +30,29 @@ export const match = (data, query) => {
   })
   return arr;
 };
+
+export const chunk = (arr, size, out) => {
+  out = out || [];
+  if (!arr.length) return out;
+  out.push(arr.slice(0, size));
+  return chunk(arr.slice(size), size, out);
+}
+
+export const paginationClickHandler = (e, arr) => {
+  const pageBtns = document.querySelectorAll('.page-btn');
+  const pageBtnsArray = [...pageBtns];
+  pageBtnsArray.filter(el => {
+    if (el.classList.contains('current_page'))
+      el.classList.remove('current_page');
+  })
+  const current = e.target;
+  let currentPage = 0;
+  const button = current.matches('button, button *');
+  if (button) {
+    current.classList.add("current_page");
+    currentPage = parseInt(current.dataset.index);
+    clearResults();
+    console.log(arr[currentPage])
+    arr[currentPage].forEach(country => renderResults(country));
+  }
+}

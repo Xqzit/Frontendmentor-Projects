@@ -1,10 +1,12 @@
-import { clearResults, renderResults } from '../views/view';
+import { clearResults, clearPagination } from '../views/view';
+import pagination from '../utils/pagination';
 
 /* Home Controller */
 
-const home = (countries) => {
+const home = (data) => {
     clearResults();
-    countries.forEach(country => renderResults(country));
+    clearPagination();
+    pagination(data);
 };
 
 export default home;

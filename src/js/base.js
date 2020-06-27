@@ -9,7 +9,8 @@ const elements = {
     searchDiv: document.querySelector('.search'),
     filter: document.querySelector('.filter'),
     filterList: document.querySelectorAll('.filter--list li'),
-    results: document.querySelector('.results')
+    results: document.querySelector('.results'),
+    pagination: document.querySelector('.pagination'),
 }
 
 export default elements;

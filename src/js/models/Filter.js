@@ -1,7 +1,7 @@
 import elements from '../base'
 import { filterCountry } from '../utils/utils'
-import { clearResults, renderResults } from '../views/view';
-
+import { clearResults, renderResults, clearPagination } from '../views/view';
+import pagination from '../utils/pagination';
 
 /* Filter Controller */
 const filter = (data) => {
@@ -13,10 +13,14 @@ const filter = (data) => {
             if (query !== 'All') {
                 const countriesByRegion = filterCountry(countries, query, 'region');
                 clearResults();
-                countriesByRegion.forEach(country => renderResults(country));
+                clearPagination();
+                pagination(countriesByRegion);
+
             } else {
                 clearResults();
-                allCountries.forEach(country => renderResults(country));
+                clearPagination();
+                pagination(allCountries);
+                // allCountries.forEach(country => renderResults(country));
             }
         }
         e.preventDefault();

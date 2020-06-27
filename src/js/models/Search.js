@@ -1,8 +1,8 @@
 import elements from '../base'
 import { match } from '../utils/utils'
-import { clearResults, renderResults, showError } from '../views/view';
+import { clearResults, renderResults, showError, clearPagination } from '../views/view';
 import home from './home'
-
+import pagination from '../utils/pagination'
 /* Search Controller */
 const search = (data) => {
     const countries = [...data];
@@ -16,7 +16,8 @@ const search = (data) => {
 
             if (countryData.length > 0) {
                 clearResults();
-                countryData.forEach(country => renderResults(country));
+                clearPagination();
+                pagination(countryData);
             } else {
                 clearResults();
                 showError();

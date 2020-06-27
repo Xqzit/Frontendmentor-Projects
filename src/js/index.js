@@ -15,11 +15,13 @@ elements.themeBtn.addEventListener('click', switchTheme);
 /* Controller */
 const initController = async () => {
     const data = await fetchCountries();
-    const isoMap = createIsoMap(data);
-    home(data);
-    filterByRegion(data);
-    search(data);
-    countryPage(data, isoMap);
+    if (data !== undefined) {
+        const isoMap = createIsoMap(data);
+        home(data);
+        filterByRegion(data);
+        search(data);
+        countryPage(data, isoMap);
+    }
 
     // Click on the logo
     elements.logo.addEventListener('click', (e) => {
@@ -34,9 +36,6 @@ initController();
 // Things to do
 
 /*
-
-* Clean up the code to have one single fetch
-* Stop fetches for Filter, Search, Country.
 * Add Pagination
 * https://www.thatsoftwaredude.com/content/9101/custom-javascript-pagination-of-objects
 * https://www.thatsoftwaredude.com/content/6125/how-to-paginate-through-a-collection-in-javascript

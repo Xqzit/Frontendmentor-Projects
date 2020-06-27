@@ -109,3 +109,22 @@ export const renderCountryPage = (country, iso) => {
 export const clearCountryPage = (el) => {
     el.remove();
 }
+
+
+const generatePageNumbers = (num) => {
+    let markup = '';
+    let i = 1;
+    while (i <= num) {
+        markup += `<button class="page-btn" data-index="${i - 1}">${i}</button>`;
+        i++;
+    }
+    return markup;
+}
+export const paginationNumbers = (num) => {
+    const markup = generatePageNumbers(num);
+    elements.pagination.insertAdjacentHTML('beforeend', markup);
+}
+
+export const clearPagination = () => {
+    elements.pagination.innerHTML = '';
+}
