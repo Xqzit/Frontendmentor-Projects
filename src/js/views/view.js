@@ -82,7 +82,7 @@ export const renderCountryPage = (country, isoMap) => {
 	const borderMarkup = generateBorderMarkup()?.join("") || [];
 
 	const markup = `
-	  <div class="wrapper">
+	  <div class="country-page-wrapper">
 	      <button class="btn back-btn"><i class="fas fa-arrow-left" href="#"></i>Back </button>
 	      <div class="country__detailed__data">
 	          <figure class="country__flag">

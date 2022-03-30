@@ -29,14 +29,17 @@ const countryPage = (data, iso) => {
 	elements.main.addEventListener("click", (e) => {
 		// Back btn
 		if (e.target.matches(".back-btn", ".back-btn i")) {
+			console.log(e.target.parentElement);
 			clearCountryPage(e.target.parentElement);
 			elements.searchDiv.style.display = "flex";
 			home(data);
 		}
 		// Border button
 		if (e.target.closest(".border-btn")) {
-			const wrapper = document.querySelector(".wrapper");
-			elements.main.removeChild(wrapper);
+			const countryPageWrapper = document.querySelector(
+				".country-page-wrapper"
+			);
+			elements.main.removeChild(countryPageWrapper);
 			const query = e.target.dataset.border;
 			const country = filterCountryName(countries, query);
 			renderCountryPage(country, iso);

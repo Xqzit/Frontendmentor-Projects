@@ -6,7 +6,7 @@ import home from "./models/home";
 import filterByRegion from "./models/filter";
 import search from "./models/search";
 import countryPage from "./models/country";
-import { switchTheme } from "./views/view";
+import { clearCountryPage, switchTheme } from "./views/view";
 
 // Theme Switcher
 elements.themeBtn.addEventListener("click", switchTheme);
@@ -27,8 +27,13 @@ const initController = async () => {
 
 	// Click on the logo
 	elements.logo.addEventListener("click", (e) => {
-		home(data);
 		e.preventDefault();
+		clearCountryPage(
+			e.target.parentElement.parentElement.parentElement.querySelector(
+				".country-page-wrapper"
+			)
+		);
+		home(data);
 	});
 };
 
