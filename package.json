@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "webpack serve --config config/webpack.dev.js",
-    "build": "webpack --config config/webpack.prod.js && netlify dev"
+    "build": "webpack --config config/webpack.prod.js",
+    "build-netlify": "yarn build && netlify dev"
   },
   "author": "John Samuel",
   "license": "MIT",
