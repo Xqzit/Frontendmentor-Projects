@@ -1,19 +1,11 @@
 {
     "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "modules": false
-            }
-        ]
-    ],
-    "plugins": [
-        "@babel/plugin-transform-runtime",
-        [
-            "@babel/plugin-proposal-class-properties",
-            {
-                "loose": true
-            }
-        ]
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage",
+          "corejs": { "version": "3.8"}
+        }
+      ]
     ]
-}
+  }
