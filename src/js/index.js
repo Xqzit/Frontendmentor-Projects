@@ -1,7 +1,7 @@
 import "../css/style.css";
 import "../css/page-style.css";
 import elements from "./base";
-import { fetchCountries, createIsoMap } from "./utils/utils";
+import { fetchAllCountries, createIsoMap } from "./utils/utils";
 import home from "./models/home";
 import filterByRegion from "./models/filter";
 import search from "./models/search";
@@ -13,8 +13,11 @@ elements.themeBtn.addEventListener("click", switchTheme);
 
 /* Controller */
 const initController = async () => {
-	const data = await fetchCountries();
-	if (data !== undefined) {
+	const unsortedData = await fetchAllCountries();
+	const data = unsortedData?.sort((a, b) =>
+		a?.name?.common.localeCompare(b?.name?.common)
+	);
+	if (unsortedData !== undefined) {
 		const isoMap = createIsoMap(data);
 		home(data);
 		filterByRegion(data);
@@ -30,11 +33,3 @@ const initController = async () => {
 };
 
 initController();
-
-// Things to do
-
-/*
- * Add Pagination
- * https://www.thatsoftwaredude.com/content/9101/custom-javascript-pagination-of-objects
- * https://www.thatsoftwaredude.com/content/6125/how-to-paginate-through-a-collection-in-javascript
- */

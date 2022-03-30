@@ -15,9 +15,9 @@ module.exports = merge(common, {
 		hot: true,
 	},
 	watchOptions: {
-		ignored: "**/node_modules/",
+		poll: true,
+		ignored: "/node_modules/",
 	},
-
 	module: {
 		rules: [
 			// Styles: Inject CSS into the head with source maps
